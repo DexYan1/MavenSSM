@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <!--    <properties>-->
+    <!--        <property name="driver" value="com.mysql.jdbc.Driver"/>-->
+    <!--    </properties>-->
+
+    <!--    加载外部属性文件-->
+    <properties resource="db.properties"></properties>
+
+    <!--  全局设置-->
+    <settings>
+        <!--  开启自动驼峰式命名映射【数据库字段命名（xx_xx）java命名（xxxxx）】可以识别Java的命名-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!-- 开启延迟加载 -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!-- 设置加载的数据是按需加载-->
+        <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
+
+
+    <typeAliases>
+        <!--        为指定类型定义别名-->
+        <!--        <typeAlias type="com.atguigu.mybatis.pojo.Employee" alias="employee"></typeAlias>-->
+        <!--        为指定包下所有的类定义别名
+                        默认将类名作为别名，不区分大小写【推荐使用小写字母】
+        -->
+        <package name="com.yan.mybatis.pojo"/>
+    </typeAliases>
+
+    <!--    设置数据库连接环境-->
+    <environments default="mysql">
+        <environment id="mysql">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <!--                mysql5版本-->
+                <!--                <property name="driver" value="com.mysql.jdbc.Driver"/>-->
+                <!--                <property name="url" value="jdbc:mysql://localhost:3306/db220106>-->
+                <!--                mysql8版本-->
+                <property name="driver" value="${db.driver}"/>
+                <property name="url" value="${db.url}"/>
+                <property name="username" value="${db.username}"/>
+                <property name="password" value="${db.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--    设置映射文件路径-->
+    <mappers>
+<!--        <mapper resource="mapper/EmployeeMapper.xml"></mapper>-->
+<!--        <mapper resource="mapper/DeptMapper.xml"></mapper>-->
+        <!-- 要求：接口的包名与映射文件的包名需要一致-->
+                <package name="com.yan.mybatis.mapper"/>
+    </mappers>
+
+</configuration>
